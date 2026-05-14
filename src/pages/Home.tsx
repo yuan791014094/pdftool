@@ -116,6 +116,34 @@ const tools = [
     title: 'PDF 水印',
     desc: '在每页添加文字水印，支持位置、透明度、颜色自定义',
   },
+  {
+    path: '/docx-to-pdf',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect x="2" y="3" width="11" height="14" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M5 8l1.5 4L8 9l1.5 3L11 8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M14 10l2.5 2.5L14 15" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+        <rect x="17" y="9" width="5" height="7" rx="1" stroke="currentColor" strokeWidth="1.3"/>
+        <path d="M19 12h2M19 14h1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+      </svg>
+    ),
+    title: 'Word 转 PDF',
+    desc: '将 .docx 文件转为 PDF，文字内容可正常保留',
+  },
+  {
+    path: '/pdf-to-docx',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="5" height="7" rx="1" stroke="currentColor" strokeWidth="1.3"/>
+        <path d="M4 5.5h3M4 7.5h2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+        <path d="M9 7l2.5 2.5L9 12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+        <rect x="12" y="7" width="10" height="14" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M15 13l1.5 4 1.5-3 1.5 3 1.5-4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    title: 'PDF 转 Word',
+    desc: '从 PDF 提取文字内容，生成可编辑的 .docx 文件',
+  },
 ]
 
 export function Home() {

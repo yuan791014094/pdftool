@@ -10,6 +10,8 @@ import { ImageToPdfPage } from './pages/ImageToPdfPage'
 import { ProtectPage } from './pages/ProtectPage'
 import { CompressPage } from './pages/CompressPage'
 import { WatermarkPage } from './pages/WatermarkPage'
+import { DocxToPdfPage } from './pages/DocxToPdfPage'
+import { PdfToDocxPage } from './pages/PdfToDocxPage'
 import './styles/global.css'
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
         <Route path="/protect" element={<ProtectPage />} />
         <Route path="/compress" element={<CompressPage />} />
         <Route path="/watermark" element={<WatermarkPage />} />
+        <Route path="/docx-to-pdf" element={<DocxToPdfPage />} />
+        <Route path="/pdf-to-docx" element={<PdfToDocxPage />} />
       </Routes>
     </BrowserRouter>
   )

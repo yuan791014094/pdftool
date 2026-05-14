@@ -65,6 +65,22 @@
   color: var(--color-on-dark);
 }
 
+/* Warning banner (used on Word conversion pages) */
+.word-warning {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background-color: #fef7e8;
+  border: 1px solid #e8c87a;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-lg);
+  color: #6b4c10;
+  font-size: var(--text-body-sm);
+  line-height: 1.55;
+}
+
+.word-warning svg { color: #b07820; }
+
 /* Error / status messages */
 .status-msg {
   display: flex;
