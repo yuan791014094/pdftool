@@ -32,7 +32,7 @@ export function RotatePage() {
   }
 
   const parsePages = (s: string, total: number): number[] | null => {
-    if (s.trim() === '') return Array.from({ length: total }, (_, i) => i)
+    if (s.trim() === '') return null  // empty input = validation error, not "all pages"
     const set = new Set<number>()
     for (const part of s.split(',')) {
       const t = part.trim()
@@ -55,7 +55,7 @@ export function RotatePage() {
     const indices = target === 'all'
       ? Array.from({ length: pageCount }, (_, i) => i)
       : parsePages(rangeInput, pageCount)
-    if (!indices || indices.length === 0) { setError('页码格式无效'); return }
+    if (!indices || indices.length === 0) { setError('请输入有效页码，如：1,3,5-8'); return }
     setBusy(true); setError(''); setResult(null)
     try {
       const bytes = await file.arrayBuffer()

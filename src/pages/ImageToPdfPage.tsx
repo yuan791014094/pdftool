@@ -46,8 +46,19 @@ export function ImageToPdfPage() {
         let img
         if (item.file.type === 'image/png') {
           img = await doc.embedPng(buf)
-        } else {
+        } else if (item.file.type === 'image/jpeg' || item.file.type === 'image/jpg') {
           img = await doc.embedJpg(buf)
+        } else {
+          // Convert unsupported formats (WebP, etc.) to PNG via canvas
+          const bitmap = await createImageBitmap(item.file)
+          const canvas = document.createElement('canvas')
+          canvas.width = bitmap.width; canvas.height = bitmap.height
+          canvas.getContext('2d')!.drawImage(bitmap, 0, 0)
+          bitmap.close()
+          const pngBlob = await new Promise<Blob>(res =>
+            canvas.toBlob(b => res(b!), 'image/png')
+          )
+          img = await doc.embedPng(await pngBlob.arrayBuffer())
         }
         const page = doc.addPage([img.width, img.height])
         page.drawImage(img, { x: 0, y: 0, width: img.width, height: img.height })
