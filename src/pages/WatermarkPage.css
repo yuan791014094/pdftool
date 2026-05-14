@@ -1,0 +1,111 @@
+.wm-options {
+  margin-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.wm-filename {
+  font-size: var(--text-body-sm);
+  color: var(--color-muted);
+}
+
+.wm-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.wm-label {
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-body-strong);
+}
+
+.wm-input {
+  width: 100%;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  background: var(--color-canvas);
+  font-size: var(--text-body-md);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+
+.wm-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(204,120,92,0.15);
+}
+
+.wm-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.wm-btn {
+  height: 34px;
+  padding: 0 var(--space-md);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  background: var(--color-canvas);
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: all 0.12s;
+  font-family: var(--font-body);
+}
+
+.wm-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.wm-btn--active { border-color: var(--color-primary); color: var(--color-primary); background: #fdf6f0; }
+
+.wm-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+}
+
+.wm-row .wm-field {
+  flex: 1;
+  min-width: 160px;
+}
+
+.wm-range {
+  width: 100%;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.wm-color-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.wm-swatch {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.12s, transform 0.12s;
+  flex-shrink: 0;
+}
+
+.wm-swatch:hover { transform: scale(1.15); }
+.wm-swatch--active { border-color: var(--color-ink); }
+
+.wm-color-picker {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  background: none;
+}

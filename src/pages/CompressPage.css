@@ -1,0 +1,107 @@
+.compress-options {
+  margin-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.compress-filename {
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-body-strong);
+}
+
+.compress-size {
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+.compress-field-label {
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-body-strong);
+}
+
+.compress-levels {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.compress-level-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  background-color: var(--color-canvas);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.12s;
+  font-family: var(--font-body);
+  min-width: 130px;
+}
+
+.compress-level-btn:hover {
+  border-color: var(--color-primary);
+}
+
+.compress-level-btn--active {
+  border-color: var(--color-primary);
+  background-color: #fdf6f0;
+}
+
+.compress-level-name {
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.compress-level-desc {
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+/* Result stats */
+.compress-result-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.compress-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.compress-stat__label {
+  font-size: 11px;
+  color: var(--color-on-dark-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.compress-stat__value {
+  font-family: var(--font-mono);
+  font-size: var(--text-code);
+  color: var(--color-on-dark);
+  font-weight: 500;
+}
+
+.compress-badge--warn {
+  background-color: var(--color-warning);
+}
+
+.compress-badge {
+  padding: 4px 10px;
+  background-color: var(--color-success);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  margin-left: var(--space-xs);
+}

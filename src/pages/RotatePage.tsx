@@ -3,6 +3,7 @@ import { PDFDocument, degrees } from 'pdf-lib'
 import { ToolPage } from '../components/ToolPage'
 import { DropZone } from '../components/DropZone'
 import { Button } from '../components/Button'
+import { useObjectUrl } from '../hooks/useObjectUrl'
 import '../components/ToolPage/ToolPage.css'
 import './RotatePage.css'
 
@@ -18,6 +19,7 @@ export function RotatePage() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [result, setResult] = useState<{ url: string; name: string } | null>(null)
+  useObjectUrl(result?.url)
 
   const onFile = async (files: File[]) => {
     const f = files[0]; if (!f) return

@@ -5,6 +5,7 @@ import { DropZone } from '../components/DropZone'
 import { FileList } from '../components/FileList'
 import { Button } from '../components/Button'
 import { ProgressBar } from '../components/ProgressBar'
+import { useObjectUrl } from '../hooks/useObjectUrl'
 import '../components/ToolPage/ToolPage.css'
 
 interface FileItem {
@@ -24,6 +25,7 @@ export function MergePage() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [result, setResult] = useState<string | null>(null)
+  useObjectUrl(result)
   const [resultName, setResultName] = useState('')
 
   const addFiles = useCallback((incoming: File[]) => {

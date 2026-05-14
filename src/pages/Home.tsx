@@ -91,6 +91,31 @@ const tools = [
     title: '加密 / 解密',
     desc: '为 PDF 设置密码保护，或移除已有密码',
   },
+  {
+    path: '/compress',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect x="4" y="2" width="12" height="16" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M8 7h6M8 10h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M14 18l4-4m0 0l-2-2m2 2l-2 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    title: 'PDF 压缩',
+    desc: '降低内嵌图片分辨率，缩小 PDF 文件体积',
+  },
+  {
+    path: '/watermark',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="15" height="18" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M7 9l10-6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity=".5"/>
+        <path d="M7 12l10-6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity=".5"/>
+        <path d="M7 15l7-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity=".5"/>
+      </svg>
+    ),
+    title: 'PDF 水印',
+    desc: '在每页添加文字水印，支持位置、透明度、颜色自定义',
+  },
 ]
 
 export function Home() {

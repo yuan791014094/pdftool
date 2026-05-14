@@ -4,6 +4,7 @@ import { ToolPage } from '../components/ToolPage'
 import { DropZone } from '../components/DropZone'
 import { FileList } from '../components/FileList'
 import { Button } from '../components/Button'
+import { useObjectUrl } from '../hooks/useObjectUrl'
 import '../components/ToolPage/ToolPage.css'
 
 interface FileItem { id: string; name: string; size: number; file: File }
@@ -16,6 +17,7 @@ export function ImageToPdfPage() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [result, setResult] = useState<{ url: string; name: string } | null>(null)
+  useObjectUrl(result?.url)
 
   const addFiles = useCallback((incoming: File[]) => {
     const imgs = incoming.filter(f => f.type.startsWith('image/'))

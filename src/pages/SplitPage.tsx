@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { PDFDocument } from 'pdf-lib'
 import { ToolPage } from '../components/ToolPage'
 import { DropZone } from '../components/DropZone'
@@ -23,6 +23,11 @@ export function SplitPage() {
   const [progress, setProgress] = useState(0)
   const [error, setError] = useState('')
   const [results, setResults] = useState<{ url: string; name: string }[]>([])
+
+  // Revoke all object URLs when results change or component unmounts
+  useEffect(() => {
+    return () => { results.forEach(r => URL.revokeObjectURL(r.url)) }
+  }, [results])
 
   const onFile = async (files: File[]) => {
     const f = files[0]
@@ -56,7 +61,7 @@ export function SplitPage() {
       for (let i = 0; i < ranges.length; i++) {
         const from = Math.max(1, parseInt(ranges[i].from) || 1)
         const to = Math.min(total, parseInt(ranges[i].to) || total)
-        if (from > to) { setError(`范围 ${i + 1}: 起始页不能大于结束页`); setBusy(false); return }
+        if (from > to) throw new Error(`范围 ${i + 1}: 起始页不能大于结束页`)
         const doc = await PDFDocument.create()
         const indices = Array.from({ length: to - from + 1 }, (_, k) => from - 1 + k)
         const pages = await doc.copyPages(src, indices)

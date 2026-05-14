@@ -1,16 +1,11 @@
 import { useState } from 'react'
-import * as pdfjs from 'pdfjs-dist'
+import { pdfjs } from '../lib/pdfjs'
 import { ToolPage } from '../components/ToolPage'
 import { DropZone } from '../components/DropZone'
 import { Button } from '../components/Button'
 import { ProgressBar } from '../components/ProgressBar'
 import '../components/ToolPage/ToolPage.css'
 import './PdfToImagePage.css'
-
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url,
-).toString()
 
 type Format = 'png' | 'jpeg'
 

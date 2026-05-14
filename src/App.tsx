@@ -8,6 +8,8 @@ import { RotatePage } from './pages/RotatePage'
 import { PdfToImagePage } from './pages/PdfToImagePage'
 import { ImageToPdfPage } from './pages/ImageToPdfPage'
 import { ProtectPage } from './pages/ProtectPage'
+import { CompressPage } from './pages/CompressPage'
+import { WatermarkPage } from './pages/WatermarkPage'
 import './styles/global.css'
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
         <Route path="/pdf-to-image" element={<PdfToImagePage />} />
         <Route path="/image-to-pdf" element={<ImageToPdfPage />} />
         <Route path="/protect" element={<ProtectPage />} />
+        <Route path="/compress" element={<CompressPage />} />
+        <Route path="/watermark" element={<WatermarkPage />} />
       </Routes>
     </BrowserRouter>
   )

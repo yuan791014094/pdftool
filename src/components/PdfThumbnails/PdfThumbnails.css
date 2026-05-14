@@ -1,0 +1,94 @@
+.pdf-thumbs {
+  margin-top: var(--space-lg);
+}
+
+.pdf-thumbs__label {
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-body-strong);
+  margin-bottom: var(--space-sm);
+}
+
+.pdf-thumbs__more {
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+.pdf-thumbs__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.pdf-thumbs-loading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--text-body-sm);
+  color: var(--color-muted);
+  margin-top: var(--space-md);
+}
+
+.pdf-thumbs-loading__dot {
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--color-primary);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: thumb-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes thumb-spin {
+  to { transform: rotate(360deg); }
+}
+
+.pdf-thumb {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.pdf-thumb--clickable {
+  cursor: pointer;
+}
+
+.pdf-thumb__canvas {
+  display: block;
+  border: 1.5px solid var(--color-hairline);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  transition: border-color 0.12s;
+  max-width: 80px;
+}
+
+.pdf-thumb--clickable:hover .pdf-thumb__canvas {
+  border-color: var(--color-primary);
+}
+
+.pdf-thumb--selected .pdf-thumb__canvas {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(204, 120, 92, 0.25);
+}
+
+.pdf-thumb__num {
+  font-size: 11px;
+  color: var(--color-muted);
+  font-weight: 500;
+}
+
+.pdf-thumb__check {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
