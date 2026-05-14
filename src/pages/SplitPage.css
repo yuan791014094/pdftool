@@ -1,0 +1,100 @@
+.split-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+}
+
+.split-info__name {
+  font-size: var(--text-body-sm);
+  color: var(--color-body-strong);
+  font-weight: 500;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.split-info__count {
+  font-size: var(--text-body-sm);
+  color: var(--color-muted);
+  flex-shrink: 0;
+}
+
+.split-ranges {
+  margin-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.split-ranges__label {
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-body-strong);
+  margin-bottom: var(--space-xxs);
+}
+
+.split-range-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.split-range-row__num {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-muted);
+  min-width: 48px;
+}
+
+.split-range-row__field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xxs);
+  font-size: var(--text-body-sm);
+  color: var(--color-body);
+}
+
+.split-input {
+  width: 60px;
+  height: 36px;
+  padding: 0 var(--space-sm);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  background-color: var(--color-canvas);
+  font-size: var(--text-body-sm);
+  color: var(--color-ink);
+  text-align: center;
+  font-family: var(--font-body);
+}
+
+.split-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(204, 120, 92, 0.15);
+}
+
+.split-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: color 0.12s, background-color 0.12s;
+}
+
+.split-remove:hover {
+  color: var(--color-error);
+  background-color: #fdf2f2;
+}

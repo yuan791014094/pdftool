@@ -1,0 +1,89 @@
+.tool-page {
+  padding: var(--space-xxl) 0 var(--space-section);
+  min-height: calc(100vh - 64px);
+}
+
+.tool-page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-muted);
+  text-decoration: none;
+  margin-bottom: var(--space-lg);
+  transition: color 0.12s;
+}
+
+.tool-page__back:hover {
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.tool-page__title {
+  margin-bottom: var(--space-sm);
+}
+
+.tool-page__desc {
+  font-size: var(--text-body-md);
+  color: var(--color-muted);
+  margin-bottom: var(--space-xl);
+  max-width: 560px;
+}
+
+.tool-page__body {
+  max-width: 720px;
+}
+
+/* Shared tool card */
+.tool-card-inner {
+  background-color: var(--color-surface-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+/* Result area */
+.result-box {
+  background-color: var(--color-surface-dark);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  margin-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.result-box__label {
+  font-size: var(--text-body-sm);
+  color: var(--color-on-dark-soft);
+}
+
+.result-box__filename {
+  font-family: var(--font-mono);
+  font-size: var(--text-code);
+  color: var(--color-on-dark);
+}
+
+/* Error / status messages */
+.status-msg {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: var(--text-body-sm);
+  margin-top: var(--space-md);
+}
+
+.status-msg--error {
+  background-color: #fdf2f2;
+  color: var(--color-error);
+  border: 1px solid #f5c0c0;
+}
+
+.status-msg--success {
+  background-color: #f0faf3;
+  color: #2d7a40;
+  border: 1px solid #b8e8c4;
+}

@@ -1,0 +1,48 @@
+.rotate-options {
+  margin-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.rotate-options__name {
+  font-size: var(--text-body-sm);
+  color: var(--color-muted);
+}
+
+.rotate-field__label {
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-body-strong);
+  margin-bottom: var(--space-xs);
+}
+
+.rotate-angle-group, .rotate-target-group {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.rotate-angle-btn, .rotate-target-btn {
+  height: 36px;
+  padding: 0 var(--space-md);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  background-color: var(--color-canvas);
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: all 0.12s;
+  font-family: var(--font-body);
+}
+
+.rotate-angle-btn:hover, .rotate-target-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.rotate-angle-btn--active, .rotate-target-btn--active {
+  background-color: var(--color-surface-card);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}

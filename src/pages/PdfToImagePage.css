@@ -1,0 +1,80 @@
+.pdf2img-options {
+  margin-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.pdf2img-row {
+  display: flex;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.pdf2img-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.pdf2img-label {
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-body-strong);
+}
+
+.pdf2img-previews {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--space-sm);
+  width: 100%;
+  margin-top: var(--space-xs);
+}
+
+.pdf2img-thumb {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+  position: relative;
+}
+
+.pdf2img-thumb img {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: block;
+}
+
+.pdf2img-thumb__overlay {
+  position: absolute;
+  inset: 0 0 20px 0;
+  border-radius: var(--radius-sm);
+  background: rgba(24,23,21,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.pdf2img-thumb:hover .pdf2img-thumb__overlay {
+  opacity: 1;
+}
+
+.pdf2img-thumb__dl {
+  color: var(--color-on-dark);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.15);
+  border-radius: var(--radius-sm);
+}
+
+.pdf2img-thumb__name {
+  font-size: 11px;
+  color: var(--color-on-dark-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
