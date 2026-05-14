@@ -12,13 +12,12 @@
   color: var(--color-muted);
   text-decoration: none;
   margin-bottom: var(--space-lg);
-  transition: color 0.12s, gap 0.15s cubic-bezier(0.22,1,0.36,1);
+  transition: color 0.12s;
 }
 
 .tool-page__back:hover {
   color: var(--color-ink);
   text-decoration: none;
-  gap: var(--space-sm);
 }
 
 .tool-page__title {
@@ -39,55 +38,25 @@
 /* Shared tool card */
 .tool-card-inner {
   background-color: var(--color-surface-card);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--color-hairline-soft);
+  border-radius: var(--radius-lg);
   padding: var(--space-xl);
-  box-shadow: 0 1px 4px rgba(20,20,19,0.05);
 }
 
 /* Result area */
 .result-box {
-  background: linear-gradient(135deg, var(--color-surface-dark) 0%, #1f1d1a 100%);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: var(--radius-xl);
+  background-color: var(--color-surface-dark);
+  border-radius: var(--radius-lg);
   padding: var(--space-xl);
   margin-top: var(--space-lg);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-md);
-  position: relative;
-  overflow: hidden;
-}
-
-.result-box::before {
-  content: '';
-  position: absolute;
-  top: -40px;
-  right: -40px;
-  width: 160px;
-  height: 160px;
-  background: radial-gradient(circle, rgba(93, 184, 166, 0.15) 0%, transparent 70%);
-  pointer-events: none;
 }
 
 .result-box__label {
   font-size: var(--text-body-sm);
   color: var(--color-on-dark-soft);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.result-box__label::before {
-  content: '';
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--color-accent-teal);
-  box-shadow: 0 0 6px rgba(93, 184, 166, 0.7);
-  flex-shrink: 0;
 }
 
 .result-box__filename {
@@ -96,7 +65,7 @@
   color: var(--color-on-dark);
 }
 
-/* Warning banner */
+/* Warning banner (used on Word conversion pages) */
 .word-warning {
   display: flex;
   gap: var(--space-sm);
