@@ -9,6 +9,50 @@ import './ProtectPage.css'
 
 type Mode = 'encrypt' | 'decrypt'
 
+function EyeIcon({ open }: { open: boolean }) {
+  return open ? (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z" stroke="currentColor" strokeWidth="1.3"/>
+      <circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.3"/>
+    </svg>
+  ) : (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z" stroke="currentColor" strokeWidth="1.3"/>
+      <circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.3"/>
+      <path d="M2 2l12 12" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+    </svg>
+  )
+}
+
+function PasswordInput({
+  value, onChange, placeholder, label,
+}: { value: string; onChange: (v: string) => void; placeholder: string; label: string }) {
+  const [show, setShow] = useState(false)
+  return (
+    <div>
+      <label className="protect-form__label">{label}</label>
+      <div className="protect-input-wrap" style={{ marginTop: 'var(--space-xs)' }}>
+        <input
+          type={show ? 'text' : 'password'}
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          placeholder={placeholder}
+          className="protect-input"
+        />
+        <button
+          type="button"
+          className="protect-eye"
+          onClick={() => setShow(s => !s)}
+          tabIndex={-1}
+          aria-label={show ? '隐藏密码' : '显示密码'}
+        >
+          <EyeIcon open={show} />
+        </button>
+      </div>
+    </div>
+  )
+}
+
 export function ProtectPage() {
   const [mode, setMode] = useState<Mode>('encrypt')
   const [file, setFile] = useState<File | null>(null)
@@ -79,33 +123,36 @@ export function ProtectPage() {
             onClick={() => { setMode('decrypt'); setError(''); setResult(null) }}
           >移除密码</button>
         </div>
+
+        <div className="protect-hint">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" style={{ flexShrink: 0, marginTop: 1 }}>
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" strokeWidth="1.2"/>
+            <path d="M7.5 5v.5M7.5 7v3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+          </svg>
+          <span>
+            {mode === 'encrypt'
+              ? '加密后需用 Adobe Reader、WPS 等专业软件打开才会提示输入密码。Chrome/Edge 内置 PDF 查看器不执行密码限制，直接打开是正常现象。'
+              : '输入 PDF 的打开密码，即可生成无密码保护的新文件。'}
+          </span>
+        </div>
+
         <DropZone onFiles={onFile} accept=".pdf" sublabel="选择一个 PDF 文件" />
         {file && (
           <div className="protect-form">
             <p className="protect-form__filename">{file.name}</p>
-            <label className="protect-form__label">
-              {mode === 'encrypt' ? '用户密码（打开文件时需要）' : '当前密码'}
-            </label>
-            <input
-              type="password"
+            <PasswordInput
+              label={mode === 'encrypt' ? '用户密码（打开文件时需要）' : '当前密码'}
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={setPassword}
               placeholder="输入密码"
-              className="protect-input"
             />
             {mode === 'encrypt' && (
-              <>
-                <label className="protect-form__label" style={{ marginTop: 'var(--space-sm)' }}>
-                  所有者密码（可选，用于限制编辑权限）
-                </label>
-                <input
-                  type="password"
-                  value={ownerPassword}
-                  onChange={e => setOwnerPassword(e.target.value)}
-                  placeholder="留空则与用户密码相同"
-                  className="protect-input"
-                />
-              </>
+              <PasswordInput
+                label="所有者密码（可选，用于限制编辑权限）"
+                value={ownerPassword}
+                onChange={setOwnerPassword}
+                placeholder="留空则与用户密码相同"
+              />
             )}
           </div>
         )}
