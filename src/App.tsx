@@ -14,7 +14,7 @@ import './styles/global.css'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/pdftool">
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
