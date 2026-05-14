@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { PDFDocument, rgb, degrees, StandardFonts } from 'pdf-lib'
+import { PDFDocument } from 'pdf-lib'
 import { ToolPage } from '../components/ToolPage'
 import { DropZone } from '../components/DropZone'
 import { Button } from '../components/Button'
@@ -17,13 +17,6 @@ const POSITIONS: { key: Position; label: string }[] = [
   { key: 'bottom-left',  label: '左下角' },
   { key: 'top-right',    label: '右上角' },
 ]
-
-function hexToRgb(hex: string) {
-  const r = parseInt(hex.slice(1, 3), 16) / 255
-  const g = parseInt(hex.slice(3, 5), 16) / 255
-  const b = parseInt(hex.slice(5, 7), 16) / 255
-  return { r, g, b }
-}
 
 export function WatermarkPage() {
   const [file, setFile] = useState<File | null>(null)
@@ -50,45 +43,70 @@ export function WatermarkPage() {
     try {
       const bytes = await file.arrayBuffer()
       const doc = await PDFDocument.load(bytes)
-      const font = await doc.embedFont(StandardFonts.HelveticaBold)
       const pages = doc.getPages()
-      const { r, g, b } = hexToRgb(color)
+
+      // Render text to canvas (supports Chinese / any Unicode via browser fonts)
+      // Rotation is baked into the PNG so pdf-lib just stamps the image.
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')!
+      const fontSpec = `bold ${fontSize}px "PingFang SC","Noto Sans SC","Microsoft YaHei","Heiti SC",Arial,sans-serif`
+      ctx.font = fontSpec
+      const textW = ctx.measureText(text).width
+      const textH = fontSize * 1.2
+
+      // Canvas must be large enough to contain the rotated bounding box
+      const rad = Math.abs(rotation) * Math.PI / 180
+      const bboxW = Math.ceil(textW * Math.cos(rad) + textH * Math.sin(rad)) + 24
+      const bboxH = Math.ceil(textW * Math.sin(rad) + textH * Math.cos(rad)) + 24
+      canvas.width = bboxW
+      canvas.height = bboxH
+
+      // Draw centered; negate rotation to match PDF counterclockwise convention
+      ctx.clearRect(0, 0, bboxW, bboxH)
+      ctx.font = fontSpec
+      ctx.fillStyle = color
+      ctx.textBaseline = 'middle'
+      ctx.textAlign = 'center'
+      ctx.translate(bboxW / 2, bboxH / 2)
+      ctx.rotate(-rotation * Math.PI / 180)
+      ctx.fillText(text, 0, 0)
+
+      const base64 = canvas.toDataURL('image/png').split(',')[1]
+      const imgBytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0))
+      const pdfImg = await doc.embedPng(imgBytes)
+      const iw = pdfImg.width
+      const ih = pdfImg.height
+
+      const drawAt = (page: (typeof pages)[0], cx: number, cy: number) => {
+        page.drawImage(pdfImg, {
+          x: cx - iw / 2,
+          y: cy - ih / 2,
+          width: iw,
+          height: ih,
+          opacity,
+        })
+      }
 
       for (let i = 0; i < pages.length; i++) {
         const page = pages[i]
         const { width, height } = page.getSize()
-        const textWidth = font.widthOfTextAtSize(text, fontSize)
-
-        const drawText = (x: number, y: number, rot = rotation) => {
-          page.drawText(text, {
-            x, y,
-            size: fontSize,
-            font,
-            color: rgb(r, g, b),
-            opacity,
-            rotate: degrees(rot),
-          })
-        }
 
         if (position === 'center') {
-          drawText(
-            width / 2 - textWidth / 2,
-            height / 2 - fontSize / 2,
-          )
+          drawAt(page, width / 2, height / 2)
         } else if (position === 'tiled') {
-          const stepX = textWidth + 80
-          const stepY = fontSize + 60
-          for (let y = 0; y < height + stepY; y += stepY) {
-            for (let x = -stepX; x < width + stepX; x += stepX) {
-              drawText(x, y)
+          const stepX = iw + 60
+          const stepY = ih + 50
+          for (let y = ih / 2; y < height + ih; y += stepY) {
+            for (let x = -iw; x < width + iw * 2; x += stepX) {
+              drawAt(page, x, y)
             }
           }
         } else if (position === 'bottom-right') {
-          drawText(width - textWidth - 24, 24, 0)
+          drawAt(page, width - iw / 2 - 28, ih / 2 + 20)
         } else if (position === 'bottom-left') {
-          drawText(24, 24, 0)
+          drawAt(page, iw / 2 + 28, ih / 2 + 20)
         } else if (position === 'top-right') {
-          drawText(width - textWidth - 24, height - fontSize - 24, 0)
+          drawAt(page, width - iw / 2 - 28, height - ih / 2 - 20)
         }
 
         setProgress(Math.round(((i + 1) / pages.length) * 90))
