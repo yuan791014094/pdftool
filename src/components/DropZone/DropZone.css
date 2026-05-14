@@ -6,10 +6,14 @@
   gap: var(--space-sm);
   min-height: 180px;
   border: 1.5px dashed var(--color-hairline);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   background-color: var(--color-surface-soft);
   cursor: pointer;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s cubic-bezier(0.22,1,0.36,1);
   padding: var(--space-xl);
   text-align: center;
 }
@@ -17,11 +21,14 @@
 .dropzone:hover:not(.dropzone--disabled) {
   border-color: var(--color-primary);
   background-color: #fdf6f0;
+  box-shadow: 0 0 0 4px rgba(204, 120, 92, 0.08);
 }
 
 .dropzone--dragging {
   border-color: var(--color-primary);
   background-color: #fdf6f0;
+  box-shadow: 0 0 0 5px rgba(204, 120, 92, 0.12);
+  transform: scale(1.01);
 }
 
 .dropzone--disabled {
@@ -31,12 +38,13 @@
 
 .dropzone__icon {
   color: var(--color-muted);
-  transition: color 0.15s ease;
+  transition: color 0.2s ease, transform 0.2s cubic-bezier(0.22,1,0.36,1);
 }
 
 .dropzone:hover:not(.dropzone--disabled) .dropzone__icon,
 .dropzone--dragging .dropzone__icon {
   color: var(--color-primary);
+  transform: translateY(-3px) scale(1.08);
 }
 
 .dropzone__label {

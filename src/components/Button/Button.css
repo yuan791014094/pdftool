@@ -9,9 +9,18 @@
   line-height: 1;
   border-radius: var(--radius-md);
   border: 1px solid transparent;
-  transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s cubic-bezier(0.22,1,0.36,1),
+    opacity 0.15s ease;
   white-space: nowrap;
   text-decoration: none;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
 }
 
 .btn--md {
@@ -34,9 +43,7 @@
 .btn--primary:hover:not(:disabled) {
   background-color: var(--color-primary-active);
   border-color: var(--color-primary-active);
-}
-.btn--primary:active:not(:disabled) {
-  background-color: var(--color-primary-active);
+  box-shadow: 0 4px 14px rgba(204, 120, 92, 0.35);
 }
 
 /* Secondary — canvas with hairline */
@@ -47,16 +54,18 @@
 }
 .btn--secondary:hover:not(:disabled) {
   background-color: var(--color-surface-soft);
+  box-shadow: 0 2px 8px rgba(20, 20, 19, 0.06);
 }
 
 /* Secondary on dark */
 .btn--secondary-dark {
   background-color: var(--color-surface-dark-elevated);
   color: var(--color-on-dark);
-  border-color: transparent;
+  border-color: rgba(255,255,255,0.08);
 }
 .btn--secondary-dark:hover:not(:disabled) {
   background-color: #2e2c29;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
 }
 
 /* Text link */
