@@ -14,16 +14,48 @@ const TYPE_LABELS: { key: FeedbackType; label: string }[] = [
   { key: 'other', label: '其他' },
 ]
 
+const DAILY_LIMIT = 3
+const COOLDOWN_MS = 60_000
+const MIN_LENGTH = 10
+
+function getSubmitLog(): number[] {
+  try {
+    const raw = localStorage.getItem('fb_log')
+    return raw ? JSON.parse(raw) : []
+  } catch { return [] }
+}
+
+function recordSubmit() {
+  const log = getSubmitLog()
+  log.push(Date.now())
+  localStorage.setItem('fb_log', JSON.stringify(log.slice(-20)))
+}
+
+function checkRateLimit(): string | null {
+  const now = Date.now()
+  const log = getSubmitLog()
+  const todayStart = new Date().setHours(0, 0, 0, 0)
+  const todayCount = log.filter(t => t >= todayStart).length
+  if (todayCount >= DAILY_LIMIT) return `每天最多提交 ${DAILY_LIMIT} 次反馈，请明天再试`
+  const last = log[log.length - 1]
+  if (last && now - last < COOLDOWN_MS) {
+    const wait = Math.ceil((COOLDOWN_MS - (now - last)) / 1000)
+    return `操作太频繁，请 ${wait} 秒后再试`
+  }
+  return null
+}
+
 export function FeedbackModal({ open, onClose }: Props) {
   const [type, setType] = useState<FeedbackType>('bug')
   const [message, setMessage] = useState('')
   const [email, setEmail] = useState('')
+  const [honeypot, setHoneypot] = useState('')
   const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'err'>('idle')
   const [errMsg, setErrMsg] = useState('')
   const overlayRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!open) { setStatus('idle'); setMessage(''); setEmail(''); setType('bug'); setErrMsg('') }
+    if (!open) { setStatus('idle'); setMessage(''); setEmail(''); setHoneypot(''); setType('bug'); setErrMsg('') }
   }, [open])
 
   useEffect(() => {
@@ -36,18 +68,23 @@ export function FeedbackModal({ open, onClose }: Props) {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!message.trim()) return
+    if (honeypot) return
+    const trimmed = message.trim()
+    if (!trimmed) return
+    if (trimmed.length < MIN_LENGTH) { setStatus('err'); setErrMsg(`请至少输入 ${MIN_LENGTH} 个字符`); return }
+    const limitMsg = checkRateLimit()
+    if (limitMsg) { setStatus('err'); setErrMsg(limitMsg); return }
     setStatus('sending')
     try {
       const body = new FormData()
       body.append('access_key', 'e5e09812-5e27-4b89-83e1-df54c9a2ac89')
       body.append('subject', `PDF工具箱反馈 [${TYPE_LABELS.find(t => t.key === type)?.label}]`)
       body.append('from_name', 'PDF工具箱用户')
-      body.append('message', message.trim())
+      body.append('message', trimmed)
       if (email.trim()) body.append('email', email.trim())
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body })
       const json = await res.json()
-      if (json.success) setStatus('ok')
+      if (json.success) { setStatus('ok'); recordSubmit() }
       else { setStatus('err'); setErrMsg(json.message ?? '提交失败，请稍后再试') }
     } catch {
       setStatus('err'); setErrMsg('网络错误，请检查网络后重试')
@@ -84,6 +121,15 @@ export function FeedbackModal({ open, onClose }: Props) {
           </div>
         ) : (
           <form onSubmit={submit} className="fb-form">
+            <input
+              type="text"
+              name="botcheck"
+              style={{ display: 'none' }}
+              tabIndex={-1}
+              autoComplete="off"
+              value={honeypot}
+              onChange={e => setHoneypot(e.target.value)}
+            />
             <div className="fb-field">
               <label className="fb-label">类型</label>
               <div className="fb-type-group">
@@ -105,10 +151,12 @@ export function FeedbackModal({ open, onClose }: Props) {
                 className="fb-textarea"
                 value={message}
                 onChange={e => setMessage(e.target.value)}
-                placeholder="请描述你遇到的问题或建议…"
-                rows={5}
+                placeholder="请描述你遇到的问题或建议（至少 10 个字符）…"
+                rows={6}
+                maxLength={1000}
                 required
               />
+              <span className="fb-char-count">{message.length}/1000</span>
             </div>
 
             <div className="fb-field">

@@ -108,6 +108,13 @@
 .fb-input:focus { border-color: var(--color-ink); }
 .fb-textarea { min-height: 100px; }
 
+.fb-char-count {
+  font-size: 12px;
+  color: var(--color-muted);
+  text-align: right;
+  margin-top: 2px;
+}
+
 .fb-error {
   font-size: var(--text-body-sm);
   color: #c64545;
